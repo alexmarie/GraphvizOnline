@@ -9,7 +9,7 @@
             overflow: hidden;
             margin: 0 0;
         }
-
+<!--
         #editor {
             margin: 0;
             position: absolute;
@@ -28,7 +28,7 @@
             left: 50%;
             overflow: scroll;
         }
-
+-->
         #status {
             width: 100%;
             position: fixed;
@@ -261,7 +261,6 @@
       updateState()
     }
 
-    editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/dot");
     editor.getSession().on("change", function () {
       clearTimeout(lastHD);
