@@ -9,26 +9,12 @@
             overflow: hidden;
             margin: 0 0;
         }
-<!--
-        #editor {
-            margin: 0;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 50%;
-            left: 0;
-        }
 
         #review {
             margin: 0;
-            position: absolute;
-            top: 50px;
-            bottom: 0;
-            right: 0;
-            left: 50%;
             overflow: scroll;
         }
--->
+
         #status {
             width: 100%;
             position: fixed;
@@ -87,33 +73,35 @@
     </style>
 </head>
 <body>
-<pre id="editor" style="visibility: hidden">digraph G {
+<div id="wrapper" style="visibility: hidden">
+    <pre id="editor">digraph G {
 
-  subgraph cluster_0 {
-    style=filled;
-    color=lightgrey;
-    node [style=filled,color=white];
-    a0 -> a1 -> a2 -> a3;
-    label = "process #1";
-  }
+      subgraph cluster_0 {
+        style=filled;
+        color=lightgrey;
+        node [style=filled,color=white];
+        a0 -> a1 -> a2 -> a3;
+        label = "process #1";
+      }
 
-  subgraph cluster_1 {
-    node [style=filled];
-    b0 -> b1 -> b2 -> b3;
-    label = "process #2";
-    color=blue
-  }
-  start -> a0;
-  start -> b0;
-  a1 -> b3;
-  b2 -> a3;
-  a3 -> a0;
-  a3 -> end;
-  b3 -> end;
+      subgraph cluster_1 {
+        node [style=filled];
+        b0 -> b1 -> b2 -> b3;
+        label = "process #2";
+        color=blue
+      }
+      start -> a0;
+      start -> b0;
+      a1 -> b3;
+      b2 -> a3;
+      a3 -> a0;
+      a3 -> end;
+      b3 -> end;
 
-  start [shape=Mdiamond];
-  end [shape=Msquare];
-}</pre>
+      start [shape=Mdiamond];
+      end [shape=Msquare];
+    }</pre>
+</div>
 
 <div id="review">
     <div id="error"></div>
