@@ -131,11 +131,6 @@
     <div id="error"></div>
 </div>
 <div id="status"></div>
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/dreampuf/graphvizonline">Fork me on GitHub</a>
-    </div>
-</div>
 
 <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -205,27 +200,6 @@
       svgImage.src = svgXml;
     }
 
-    function copyToClipboard(str) {
-      const el = document.createElement('textarea');
-      el.value = str;
-      el.setAttribute('readonly', '');
-      el.style.position = 'absolute';
-      el.style.left = '-9999px';
-      document.body.appendChild(el);
-      const selected =
-        document.getSelection().rangeCount > 0
-          ? document.getSelection().getRangeAt(0)
-          : false;
-      el.select();
-      var result = document.execCommand('copy')
-      document.body.removeChild(el);
-      if (selected) {
-        document.getSelection().removeAllRanges();
-        document.getSelection().addRange(selected);
-      }
-      return result;
-    };
-
     function renderGraph() {
       reviewer.classList.add("working");
       reviewer.classList.remove("error");
@@ -269,7 +243,6 @@
     }
 
     function updateOutput(result) {
-
       var text = reviewer.querySelector("#text");
       if (text) {
         reviewer.removeChild(text);
@@ -344,27 +317,7 @@
       return -1;
     };
 
-    if (params.has('url')) {
-      const url = params.get('url');
-      let ok = false;
-      fetch(url)
-        .then(res => {
-          ok = res.ok;
-          return res.text();
-        })
-        .then(res => {
-          if (!ok) {
-            throw { message: res };
-          }
-
-          editor.getSession().setValue(res);
-          renderGraph();
-        }).catch(e => {
-          show_error(e);
-        });
-    } else if (location.hash.length > 1) {
-      editor.getSession().setValue(decodeURIComponent(location.hash.substring(1)));
-    } else if (editor.getValue()) { // Init
+    if (editor.getValue()) { // Init
       renderGraph();
     }
 
