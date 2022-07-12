@@ -195,8 +195,6 @@
       worker = null,
       parser = new DOMParser(),
       showError = null,
-      formatEl = document.querySelector("#format select"),
-      engineEl = document.querySelector("#engine select"),
       rawEl = document.querySelector("#raw input"),
       shareEl = document.querySelector("#share"),
       shareURLEl = document.querySelector("#shareurl"),
@@ -431,9 +429,7 @@
         editor.getSession().setValue(decodeURIComponent(event.state.content));
       }
     };
-
-    formatEl.addEventListener("change", renderGraph);
-    engineEl.addEventListener("change", renderGraph);
+      
     rawEl.addEventListener("change", renderGraph);
     share.addEventListener("click", copyShareURL);
 
