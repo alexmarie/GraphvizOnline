@@ -337,13 +337,8 @@
     }
 
     function updateOutput(result) {
-      if (formatEl.value === "svg") {
-        document.querySelector("#raw").classList.remove("disabled");
-        rawEl.disabled = false;
-      } else {
-        document.querySelector("#raw").classList.add("disabled");
-        rawEl.disabled = true;
-      }
+      document.querySelector("#raw").classList.remove("disabled");
+      rawEl.disabled = false;
 
       var text = reviewer.querySelector("#text");
       if (text) {
@@ -362,7 +357,7 @@
       reviewer.classList.remove("working");
       reviewer.classList.remove("error");
 
-      if (formatEl.value == "svg" && !rawEl.checked) {
+      if (!rawEl.checked) {
         var svg = parser.parseFromString(result, "image/svg+xml");
         //get svg source.
         var serializer = new XMLSerializer();
@@ -393,20 +388,6 @@
           fit: true,
           center: true,
         });
-      } else if (formatEl.value == "png-image-element") {
-        var resultWithPNGHeader = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(result)));
-        svgXmlToImage(resultWithPNGHeader, function (err, image) {
-          if (err) {
-            show_error(err)
-            return
-          }
-          image.setAttribute("title", "graphviz");
-          downloadBtn.href = image.src;
-          downloadBtn.download = "graphviz.png";
-          var a = document.createElement("a");
-          a.appendChild(image);
-          reviewer.appendChild(a);
-        })
       } else {
         var text = document.createElement("div");
         text.id = "text";
