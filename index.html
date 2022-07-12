@@ -84,18 +84,6 @@
             z-index: 1;
         }
 
-        #download {
-            font: bold 12px Arial;
-            text-decoration: none;
-            background-color: #EEEEEE;
-            color: #333333;
-            padding: 2px 6px 2px 6px;
-            border-top: 1px solid #CCCCCC;
-            border-right: 1px solid #333333;
-            border-bottom: 1px solid #333333;
-            border-left: 1px solid #CCCCCC;
-        }
-
     </style>
 </head>
 <body>
@@ -141,7 +129,6 @@
       t_stetus = -1,
       reviewer = document.getElementById("review"),
       scale = window.devicePixelRatio || 1,
-      downloadBtn = document.getElementById("download"),
       editor = ace.edit("editor"),
       lastHD = -1,
       worker = null,
@@ -260,25 +247,6 @@
       reviewer.classList.remove("working");
       reviewer.classList.remove("error");
       var svg = parser.parseFromString(result, "image/svg+xml");
-      //get svg source.
-      var serializer = new XMLSerializer();
-      var source = serializer.serializeToString(svg);
-      //add name spaces.
-      if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
-          source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-      }
-      if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
-          source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-      }
-      //add xml declaration
-      if (!source.startsWith("<?xml version")) {
-          source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-      }
-      // https://stackoverflow.com/questions/18925210/download-blob-content-using-specified-charset
-      //const blob = new Blob(["\ufeff", svg], {type: 'image/svg+xml;charset=utf-8'});
-      const url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
-      downloadBtn.href = url;
-      downloadBtn.download = "graphviz.svg";
       var a = document.createElement("a");
       var svgEl = svg.documentElement;
       a.appendChild(svgEl);
